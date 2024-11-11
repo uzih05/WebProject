@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 작성</title>
+  <link rel="stylesheet" href="/discord.css">
+</head>
+<body>
+<section class="container">
+  <h1>게시글 작성</h1>
+  <form th:action="@{/save}" method="post">
+    <input type="text" name="name" placeholder="제목" required />
+    <input type="text" name="author" placeholder="작성자" required />
+    <textarea name="description" placeholder="내용" required></textarea>
+    <button type="submit">저장</button>
+  </form>
+  <a href="/list">목록으로 돌아가기</a>
+</section>
+</body>
+</html>

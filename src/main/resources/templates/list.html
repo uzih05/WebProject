@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시판</title>
+  <link rel="stylesheet" href="/discord.css">
+</head>
+<body>
+<section class="container">
+  <h1>커뮤니티 게시판</h1>
+  <div id="board-search">
+    <a href="/new">
+      <button>게시글 작성</button>
+    </a>
+  </div>
+  <table class="board-table">
+    <thead>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>작성 시간</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item, iterStat : ${items}">
+      <td th:text="${iterStat.index + 1}">1</td>
+      <td><a th:href="@{/view/{id}(id=${item.id})}" th:text="${item.name}">제목</a></td>
+      <td th:text="${item.author}">작성자</td>
+      <td th:text="${item.formattedCreatedAt}">작성 시간</td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/"><button class="back-btn">첫 페이지로 돌아가기</button></a>
+</section>
+</body>
+</html>
