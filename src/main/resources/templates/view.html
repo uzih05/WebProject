@@ -10,22 +10,35 @@
 </head>
 <body>
 <section class="container">
-    <!-- 게시글 제목, 작성자, 작성일 박스 -->
-    <div class="post-info-box">
-        <h1 th:text="${item.name}">게시글 제목</h1>
-        <p><strong>작성자:</strong> <span th:text="${item.author}">작성자</span></p>
-        <p><strong>작성일:</strong> <span th:text="${item.formattedCreatedAt}">작성일</span></p>
+    <!-- 삭제 메시지 표시 -->
+    <div th:if="${message}" class="alert alert-success" role="alert">
+        <p th:text="${message}"></p>
     </div>
 
-    <!-- 내용 회색 박스 -->
-    <div class="markdown-content">
-        <div id="markdownContent" th:text="${item.description}">게시글 내용</div>
+    <!-- 게시글이 없는 경우 에러 메시지 표시 -->
+    <div th:if="${item == null}" class="alert alert-danger" role="alert">
+        <p>존재하지 않는 게시글입니다.</p>
     </div>
 
-    <!-- 삭제 버튼 -->
-    <form th:action="@{/delete/{id}(id=${item.id})}" method="post" style="display:inline;">
-        <button class="button" type="submit" onclick="return confirm('이 게시글을 삭제하시겠습니까?')">삭제</button>
-    </form>
+    <!-- 게시글이 있는 경우 내용 표시 -->
+    <div th:if="${item != null}">
+        <!-- 게시글 제목, 작성자, 작성일 박스 -->
+        <div class="post-info-box">
+            <h1 th:text="${item.name}">게시글 제목</h1>
+            <p><strong>작성자:</strong> <span th:text="${item.author}">작성자</span></p>
+            <p><strong>작성일:</strong> <span th:text="${item.formattedCreatedAt}">작성일</span></p>
+        </div>
+
+        <!-- 내용 회색 박스 -->
+        <div class="markdown-content">
+            <div id="markdownContent" th:text="${item.description}">게시글 내용</div>
+        </div>
+
+        <!-- 삭제 버튼 -->
+        <form th:action="@{/delete/{id}(id=${item.id})}" method="post" style="display:inline;">
+            <button class="button" type="submit" onclick="return confirm('이 게시글을 삭제하시겠습니까?')">삭제</button>
+        </form>
+    </div>
 
     <!-- 목록으로 돌아가기 버튼 -->
     <a href="/list">
@@ -36,9 +49,11 @@
 <script>
     // 페이지가 완전히 로드되었을 때, marked.js를 실행
     window.onload = function() {
-        var markdownContent = document.getElementById("markdownContent").textContent; // 텍스트만 가져오기
-        var htmlContent = marked(markdownContent); // 마크다운을 HTML로 변환
-        document.getElementById("markdownContent").innerHTML = htmlContent; // 변환된 HTML 삽입
+        var markdownContent = document.getElementById("markdownContent")?.textContent; // 텍스트만 가져오기
+        if (markdownContent) {
+            var htmlContent = marked(markdownContent); // 마크다운을 HTML로 변환
+            document.getElementById("markdownContent").innerHTML = htmlContent; // 변환된 HTML 삽입
+        }
     }
 </script>
 </body>
