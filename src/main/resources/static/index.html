@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome</title>
-  <link rel="stylesheet" href="discord.css"> <!-- 수정된 CSS 링크 -->
+  <title>지헌코드 메인 페이지</title>
+  <link rel="stylesheet" href="/discord.css">
 </head>
 <body>
 <div class="main-container">
@@ -12,17 +12,22 @@
   <div class="sidebar">
     <h2>지헌코드</h2>
     <ul>
-      <li><a href="/list">아이템 리스트</a></li>
-      <li><a href="#">설정</a></li>
-      <li><a href="#">로그아웃</a></li>
+      <li sec:authorize="isAuthenticated()"><a href="/list">아이템 리스트</a></li> <!-- 로그인 사용자만 접근 가능 -->
+      <li><a href="/signup">회원가입</a></li>
+      <li><a href="/login">로그인</a></li>
+      <li sec:authorize="isAuthenticated()"><a href="/settings">설정</a></li> <!-- 로그인 사용자만 접근 가능 -->
+      <li sec:authorize="isAuthenticated()"><a href="/logout">로그아웃</a></li> <!-- 로그인 사용자만 로그아웃 표시 -->
     </ul>
   </div>
 
-  <!-- 오른쪽 채팅 공간 -->
+  <!-- 메인 컨텐츠 -->
   <div class="chat-container">
-    <h1>이런 공간이 있다면 어떨까요...</h1>
-    <p>디스코드 스타일로 꾸민 게시판!</p>
-    <a href="/list" class="btn">게시판 리스트로 이동...</a>
+    <h1>환영합니다!</h1>
+    <p>지헌코드에 오신 것을 환영합니다. 로그인하여 다양한 기능을 이용해보세요.</p>
+    <!-- 로그인한 사용자에게만 보이는 게시판 이동 버튼 -->
+    <a sec:authorize="isAuthenticated()" href="/list" class="btn">게시판 리스트로 이동...</a>
+    <!-- 로그인하지 않은 사용자에게 보이는 로그인 유도 메시지 -->
+    <p sec:authorize="!isAuthenticated()">게시판을 이용하려면 <a href="/login">로그인</a>이 필요합니다.</p>
   </div>
 </div>
 </body>

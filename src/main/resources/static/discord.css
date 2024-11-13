@@ -254,3 +254,51 @@ textarea {
 .button:hover {
     background-color: #e60000;  /* 마우스 오버 시 더 진한 빨간색 */
 }
+/* 로그인 및 회원가입 폼 스타일 */
+form.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form.container label {
+    font-size: 1rem;
+    margin: 10px 0 5px;
+    color: #d1d1d1; /* 라벨 색상 */
+}
+
+form.container input[type="text"],
+form.container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #3b3b3b;
+    border-radius: 5px;
+    background-color: #2c2f33; /* 입력란 배경색 */
+    color: #ffffff; /* 입력란 텍스트 색상 */
+    font-size: 1rem;
+}
+
+form.container input[type="text"]:focus,
+form.container input[type="password"]:focus {
+    border-color: #7289da; /* 포커스 시 테두리 색상 */
+    outline: none;
+    box-shadow: 0 0 5px rgba(114, 137, 218, 0.5);
+}
+
+form.container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7289da; /* 버튼 배경색 */
+    color: #ffffff; /* 버튼 텍스트 색상 */
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+form.container button:hover {
+    background-color: #5a6fb2; /* 버튼 호버 색상 */
+}
